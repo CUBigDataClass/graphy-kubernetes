@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cql-test
+  namespace: cassandra
+spec:
+  containers:
+  - name: cqlsh
+    image: projectepic/cqlsh:1.0.1
+    command:
+    - sleep
+    - "3600"
+  restartPolicy: Always

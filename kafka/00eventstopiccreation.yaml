@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: topic-create-new-trends
+  namespace: kafka
+spec:
+  template:
+    metadata:
+      name: topic-create
+      labels:
+        topic: new_trends
+    spec:
+      containers:
+      - name: kafka
+        image: solsson/kafka:0.10.0.1
+        command:
+        - ./bin/kafka-topics.sh
+        - --zookeeper
+        - zookeeper:2181
+        - --create
+        - --if-not-exists
+        - --topic
+        - new_trends
+        - --partitions
+        - "2"
+        - --replication-factor
+        - "2"
+      restartPolicy: Never

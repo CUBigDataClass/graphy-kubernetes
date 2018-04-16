@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name:  trend-puller
+  labels:
+    name:  trend-puller
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name:  trend-puller
+    spec:
+      containers:
+      - image:  graphy/trend-puller:latest
+        name:  trend-puller
+        env:
+        - name: KAFKA_SERVERS
+          value: kafka-0.broker.kafka.svc.cluster.local:9092,kafka-1.broker.kafka.svc.cluster.local:9092,kafka-2.broker.kafka.svc.cluster.local:9092 
+      restartPolicy: Always
+      imagePullPolicy: Always
