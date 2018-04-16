@@ -16,6 +16,6 @@ spec:
         name:  trend-puller
         env:
         - name: KAFKA_SERVERS
-          value: kafka-0.broker.kafka.svc.cluster.local:9092,kafka-1.broker.kafka.svc.cluster.local:9092,kafka-2.broker.kafka.svc.cluster.local:9092 
+          value: kafka-0.broker.kafka.svc.cluster.local:9092,kafka-1.broker.kafka.svc.cluster.local:9092
       restartPolicy: Always
       imagePullPolicy: Always
