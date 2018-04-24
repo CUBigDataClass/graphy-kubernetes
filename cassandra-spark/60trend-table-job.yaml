@@ -1,0 +1,17 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-trends-job
+  namespace: cassandra
+spec:
+  template:
+    metadata:
+      name: create-trends-job
+    spec:
+      containers:
+      - name: cqlsh
+        image: projectepic/cqlsh:1.0.1
+        command: ["/bin/sh"]
+        args: ["-c", "echo \"CREATE TABLE graphy.trend(trend text PRIMARY KEY,sentiment text, topic text);exit;\" | cqlsh cassandra-0.cassandra --cqlversion=3.4.2"]
+      restartPolicy: Never
