@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name:  tweet-puller
+  labels:
+    name:  tweet-puller
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        name:  tweet-puller
+    spec:
+      containers:
+      - image:  graphy/tw_puller:1.0.2
+        name:  tweet-puller
+        env:
+        - name: KAFKA_SERVERS
+          value: kafka-0.broker.kafka.svc.cluster.local:9092,kafka-1.broker.kafka.svc.cluster.local:9092
+        - name: CASSANDRA_NODES
+          value: cassandra-0.cassandra.cassandra.svc.cluster.local,cassandra-1.cassandra.cassandra.svc.cluster.local
+        - name:  SEARCHTWEETS_ENDPOINT
+          value:  https://gnip-api.twitter.com/search/fullarchive/accounts/greg-students/prod.json
+        - name: SEARCHTWEETS_ACCOUNT_TYPE
+          value: enterprise
+        - name: SEARCHTWEETS_USERNAME
+          valueFrom:
+              secretKeyRef:
+                name: apisecret
+                key: username
+        - name: SEARCHTWEETS_PASSWORD
+          valueFrom:
+               secretKeyRef:
+                 name: apisecret
+                 key: password
+      restartPolicy: Always

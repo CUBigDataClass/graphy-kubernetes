@@ -1,21 +1,33 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+# apiVersion: batch/v1beta1
+# kind: CronJob
+# metadata:
+#   name: trend-puller
+# spec:
+#   schedule: "0 */12 * * *"
+#   jobTemplate:
+#     spec:
+#       template:
+#         spec:
+#           containers:
+#            - image:  graphy/trend-puller:latest
+#              name:  trend-puller
+#              env:
+#              - name: KAFKA_SERVERS
+#                value: kafka-0.broker.kafka.svc.cluster.local:9092,kafka-1.broker.kafka.svc.cluster.local:9092
+#           imagePullPolicy: Always
+#           restartPolicy: OnFailure
+---
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name:  trend-puller
-  labels:
-    name:  trend-puller
+  name: trend-puller
 spec:
-  replicas: 1
   template:
-    metadata:
-      labels:
-        name:  trend-puller
     spec:
       containers:
-      - image:  graphy/trend-puller:latest
-        name:  trend-puller
-        env:
-        - name: KAFKA_SERVERS
-          value: kafka-0.broker.kafka.svc.cluster.local:9092,kafka-1.broker.kafka.svc.cluster.local:9092
-      restartPolicy: Always
-      imagePullPolicy: Always
+        - image:  graphy/trend_puller:1.0.2
+          name:  trend-puller
+          env:
+          - name: KAFKA_SERVERS
+            value: kafka-0.broker.kafka.svc.cluster.local:9092,kafka-1.broker.kafka.svc.cluster.local:9092
+      restartPolicy: OnFailure
