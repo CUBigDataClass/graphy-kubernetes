@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: tweet-classifier
+  namespace: cassandra
+spec:
+  template:
+    metadata:
+      name: tweet-classifier
+    spec:
+      containers:
+      - name: tweet-classifier
+        image: graphy/tweet_classifier:1.0.13 
+        env:
+           - name: CASSANDRA_HOST
+             value: cassandra-0.cassandra.cassandra.svc.cluster.local
+        command: ["spark-submit"]
+        args: ["--packages","datastax:spark-cassandra-connector:2.0.1-s_2.11", "/output_topics_into_cassandra.py"]
+      restartPolicy: Never

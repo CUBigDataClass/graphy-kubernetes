@@ -29,5 +29,5 @@ spec:
       - name: cqlsh
         image: projectepic/cqlsh:1.0.1
         command: ["/bin/sh"]
-        args: ["-c", "echo \"CREATE TABLE IF NOT EXISTS graphy.tweet (twid bigint,creation_time timestamp,body text, trend text, topic text, user text, location text, PRIMARY KEY (trend,creation_time,twid)) WITH CLUSTERING ORDER BY (creation_time  DESC);exit;\" | cqlsh cassandra-0.cassandra --cqlversion=3.4.2"]
+        args: ["-c", "echo \"CREATE TABLE IF NOT EXISTS graphy.tweet (twid bigint,sentiment text,creation_time timestamp,body text, trend text, topic text, user text, location text, PRIMARY KEY (trend,creation_time,twid)) WITH CLUSTERING ORDER BY (creation_time  DESC);exit;\" | cqlsh cassandra-0.cassandra --cqlversion=3.4.2"]
       restartPolicy: Never

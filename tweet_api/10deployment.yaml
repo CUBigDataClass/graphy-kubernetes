@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name:  tweet-api
+  labels:
+    name:  tweet-api
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name:  tweet-api
+    spec:
+      containers:
+      - image:  graphy/tweets_api:1.0.1
+        name:  tweet-api
+        env:
+        - name: CASSANDRA_NODES
+          value: cassandra-0.cassandra.cassandra.svc.cluster.local,cassandra-1.cassandra.cassandra.svc.cluster.local
+      restartPolicy: Always

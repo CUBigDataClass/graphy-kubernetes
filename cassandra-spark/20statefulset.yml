@@ -73,7 +73,7 @@ spec:
         - name: cassandra-data
           mountPath: /cassandra_data
       - name: spark-worker
-        image: gcr.io/google_containers/spark:1.5.2_v1
+        image: casassg/spark:2.2.1_v1
         command: ["/start-worker"]
         ports:
           - containerPort: 8081
