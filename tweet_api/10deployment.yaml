@@ -12,7 +12,7 @@ spec:
         name:  tweet-api
     spec:
       containers:
-      - image:  graphy/tweets_api:1.0.4
+      - image:  graphy/tweets_api:1.0.8
         name:  tweet-api
         env:
         - name: CASSANDRA_NODES
