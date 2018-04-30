@@ -12,7 +12,7 @@ spec:
         name:  tweet-puller
     spec:
       containers:
-      - image:  graphy/tw_puller:1.0.2
+      - image:  graphy/tw_puller:1.0.7
         name:  tweet-puller
         env:
         - name: KAFKA_SERVERS
